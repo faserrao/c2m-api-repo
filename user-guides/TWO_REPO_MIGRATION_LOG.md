@@ -373,15 +373,28 @@ git rm -r --cached sdk/
 3. Fixed Makefile to create postman/generated directory on demand
 4. Added temp files to .gitignore
 
-### Task 5.2: Merge to Main ⏳ AWAITING USER ACTION
-**Next Steps**:
-1. Go to https://github.com/faserrao/c2m-api-repo/pull/48
-2. Review the changes one final time
-3. Click "Merge pull request"
-4. The main branch will automatically:
-   - Build all artifacts
-   - Push to c2m-api-artifacts repository
-   - Update Postman workspaces
+### Task 5.2: Monitor main branch deployment 🔄 IN PROGRESS
+**Status**: Troubleshooting CI/CD failure
+**PR Merged**: 2025-09-18 13:09 PST
+
+**Initial Deployment Result**:
+- ✅ PR #48 merged successfully
+- ❌ Main branch CI/CD failed (run 17840161507)
+- Failure point: `postman-publish-personal` target
+
+**Issue Identified**:
+- The `openapi-spec-diff` target tries to fetch the OpenAPI spec from origin/main
+- Since we just removed all generated files, the file doesn't exist
+- Error: `fatal: path 'openapi/c2mapiv2-openapi-spec-final.yaml' exists on disk, but not in 'origin/main'`
+
+**Hotfix Created**:
+- Created PR #49: "Hotfix: Handle missing OpenAPI spec in main branch"
+- Branch: `hotfix/openapi-diff-two-repo`
+- Fix: Updated `openapi-spec-diff` to check if file exists before trying to show it
+- URL: https://github.com/faserrao/c2m-api-repo/pull/49
+- Status: ✅ All checks passing (as of 2025-09-18 14:01 PST)
+
+**Next Action**: Merge PR #49 to fix main branch CI/CD
 
 ---
 
